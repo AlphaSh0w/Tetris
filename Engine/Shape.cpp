@@ -27,6 +27,7 @@ Shapes::Straight::Straight()
 	:
 	Shape(4,4)
 {
+	shape = GetShapeVersion(Rotation::up);
 }
 
 ShapeBoard Shapes::Straight::GetShapeVersion(Rotation R) const
@@ -68,3 +69,28 @@ void Shapes::Straight::RotateLeft()
 	shape = GetShapeVersion(current_rotation);
 }
 
+Shapes::Square::Square()
+	:
+	Shape(2,2)
+{
+	shape = GetShapeVersion(Rotation::up);
+}
+
+ShapeBoard Shapes::Square::GetShapeVersion(Rotation R) const
+{
+	ShapeBoard temp = ShapeBoard();
+	temp.resize(2 * 2);
+	//filling the right shape.
+	AssignTilesAt(temp, { 0,1,2,3 }, Colors::Yellow);
+	return std::move(temp);
+}
+
+void Shapes::Square::RotateRight()
+{
+	current_rotation = (Rotation)(((int)current_rotation + 1) % 4);
+}
+
+void Shapes::Square::RotateLeft()
+{
+	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
+}

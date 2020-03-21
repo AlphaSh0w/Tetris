@@ -18,7 +18,6 @@ public:
 	};
 public:
 	virtual ShapeBoard GetShapeVersion(Rotation R) const = 0;
-
 	virtual void RotateLeft() = 0;
 	virtual void RotateRight() = 0;
 
@@ -28,9 +27,10 @@ public:
 	virtual ~Shape() = default;
 protected:
 	Shape(int rows, int columns);
-	static void AssignTilesAt(ShapeBoard& shape_board,std::vector<int> V, Color c); //fills the shapeboard at V positions with color c
 	Rotation current_rotation = Rotation::up;
 	ShapeBoard shape;
+
+	static void AssignTilesAt(ShapeBoard& shape_board,std::vector<int> V, Color c); //fills the shapeboard at V positions with color c
 private:
 	int rows;
 	int columns;
@@ -47,5 +47,14 @@ namespace Shapes
 		void RotateRight() override;
 		void RotateLeft() override;
 
+	};
+
+	class Square : public Shape
+	{
+	public:
+		Square();
+		ShapeBoard GetShapeVersion(Rotation R) const override;
+		void RotateRight() override;
+		void RotateLeft() override;
 	};
 }

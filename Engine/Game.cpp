@@ -49,6 +49,10 @@ void Game::UpdateModel()
 	test.RotateRight();
 	test.RotateRight();
 	test.RotateRight();
+	Shapes::Square sqtest;
+	sqtest.RotateLeft();
+	sqtest.RotateLeft();
+	sqtest.RotateLeft();
 	
 }
 
