@@ -15,6 +15,14 @@ Shape::Shape(int rows, int columns)
 	shape.resize(rows * columns);
 }
 
+void Shape::AssignTilesAt(ShapeBoard& shape_board,std::vector<int> V, Color c)
+{
+	for (int v : V)
+	{
+		shape_board[v] = std::make_unique<Color>(c);
+	}
+}
+
 Shapes::Straight::Straight()
 	:
 	Shape(4,4)
@@ -30,28 +38,16 @@ ShapeBoard Shapes::Straight::GetShapeVersion(Rotation R) const
 	switch (R)
 	{
 	case Rotation::up:
-		temp[4] = std::make_unique<Tile>(Colors::Blue);
-		temp[5] = std::make_unique<Tile>(Colors::Blue);
-		temp[6] = std::make_unique<Tile>(Colors::Blue);
-		temp[7] = std::make_unique<Tile>(Colors::Blue);
+		AssignTilesAt(temp, {4,5,6,7}, Colors::Blue);
 		break;
 	case Rotation::right:
-		temp[2] = std::make_unique<Tile>(Colors::Blue);
-		temp[6] = std::make_unique<Tile>(Colors::Blue);
-		temp[10] = std::make_unique<Tile>(Colors::Blue);
-		temp[14] = std::make_unique<Tile>(Colors::Blue);
+		AssignTilesAt(temp, { 2,6,10,14 }, Colors::Blue);
 		break;
 	case Rotation::down:
-		temp[8] = std::make_unique<Tile>(Colors::Blue);
-		temp[9] = std::make_unique<Tile>(Colors::Blue);
-		temp[10] = std::make_unique<Tile>(Colors::Blue);
-		temp[11] = std::make_unique<Tile>(Colors::Blue);
+		AssignTilesAt(temp, { 8,9,10,11 }, Colors::Blue);
 		break;
 	case Rotation::left:
-		temp[1] = std::make_unique<Tile>(Colors::Blue);
-		temp[5] = std::make_unique<Tile>(Colors::Blue);
-		temp[9] = std::make_unique<Tile>(Colors::Blue);
-		temp[13] = std::make_unique<Tile>(Colors::Blue);
+		AssignTilesAt(temp, { 1,5,9,13 }, Colors::Blue);
 		break;
 	default:
 		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).

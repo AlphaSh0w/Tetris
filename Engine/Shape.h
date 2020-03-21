@@ -26,11 +26,13 @@ public:
 	virtual ~Shape() = default;
 protected:
 	Shape(int rows, int columns);
+	static void AssignTilesAt(ShapeBoard& shape_board,std::vector<int> V, Color c); //fills the shapeboard at V positions with color c
 private:
 	ShapeBoard shape;
 	int rows;
 	int columns;
 	Rotation current_rotation = Rotation::up;
+	
 };
 
 namespace Shapes
