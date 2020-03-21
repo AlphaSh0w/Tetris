@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "Shape.h"
 
 Game::Game( MainWindow& wnd )
 	:
@@ -38,6 +39,11 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	Shapes::Straight test;
+	ShapeBoard temp = test.GetShapeVersion(Shape::Rotation::up);
+	temp = test.GetShapeVersion(Shape::Rotation::right);
+	temp = test.GetShapeVersion(Shape::Rotation::down);
+	temp = test.GetShapeVersion(Shape::Rotation::left);
 }
 
 void Game::ComposeFrame()
