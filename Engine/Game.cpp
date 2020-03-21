@@ -41,7 +41,7 @@ void Game::UpdateModel()
 {
 
 	Shapes::Straight test;
-	ShapeBoard temp = test.GetShapeVersion(Shape::Rotation::up);
+	RawShape temp = test.GetShapeVersion(Shape::Rotation::up);
 	temp = test.GetShapeVersion(Shape::Rotation::right);
 	temp = test.GetShapeVersion(Shape::Rotation::down);
 	temp = test.GetShapeVersion(Shape::Rotation::left);
@@ -53,7 +53,12 @@ void Game::UpdateModel()
 	sqtest.RotateLeft();
 	sqtest.RotateLeft();
 	sqtest.RotateLeft();
-	
+
+	std::unique_ptr<Shape> shapeptr = std::make_unique<Shapes::Tee>();
+	shapeptr->GetRawShape();
+	shapeptr->RotateLeft();
+	shapeptr->GetRawShape();
+	shapeptr->RotateLeft();
 }
 
 void Game::ComposeFrame()

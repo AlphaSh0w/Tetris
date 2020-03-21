@@ -4,7 +4,7 @@
 #include "Colors.h"
 
 typedef Color Tile;
-typedef std::vector<std::unique_ptr<Tile>> ShapeBoard;
+typedef std::vector<std::unique_ptr<Tile>> RawShape;
 
 class Shape
 {
@@ -17,20 +17,20 @@ public:
 		left = 3
 	};
 public:
-	virtual ShapeBoard GetShapeVersion(Rotation R) const = 0;
+	virtual RawShape GetShapeVersion(Rotation R) const = 0;
 	virtual void RotateLeft() = 0;
 	virtual void RotateRight() = 0;
 
-	const ShapeBoard& GetShape();
+	const RawShape& GetRawShape();
 	//static std::unique_ptr<Shape> GenerateRandomShape(); //to be implemented once the shapes are implemented.
 
 	virtual ~Shape() = default;
 protected:
 	Shape(int rows, int columns);
 	Rotation current_rotation = Rotation::up;
-	ShapeBoard shape;
+	RawShape shape;
 
-	static void AssignTilesAt(ShapeBoard& shape_board,std::vector<int> V, Color c); //fills the shapeboard at V positions with color c
+	static void AssignTilesAt(RawShape& shape_board,std::vector<int> V, Color c); //fills the shapeboard at V positions with color c
 private:
 	int rows;
 	int columns;
@@ -43,7 +43,7 @@ namespace Shapes
 	{
 	public:
 		Straight();
-		ShapeBoard GetShapeVersion(Rotation R) const override;
+		RawShape GetShapeVersion(Rotation R) const override;
 		void RotateRight() override;
 		void RotateLeft() override;
 
@@ -53,7 +53,16 @@ namespace Shapes
 	{
 	public:
 		Square();
-		ShapeBoard GetShapeVersion(Rotation R) const override;
+		RawShape GetShapeVersion(Rotation R) const override;
+		void RotateRight() override;
+		void RotateLeft() override;
+	};
+
+	class Tee : public Shape
+	{
+	public:
+		Tee();
+		RawShape GetShapeVersion(Rotation R) const override;
 		void RotateRight() override;
 		void RotateLeft() override;
 	};

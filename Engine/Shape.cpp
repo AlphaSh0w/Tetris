@@ -1,7 +1,7 @@
 #include "Shape.h"
 #include <assert.h>
 
-const std::vector<std::unique_ptr<Tile>>& Shape::GetShape()
+const std::vector<std::unique_ptr<Tile>>& Shape::GetRawShape()
 {
 	return shape;
 }
@@ -15,7 +15,7 @@ Shape::Shape(int rows, int columns)
 	shape.resize(rows * columns);
 }
 
-void Shape::AssignTilesAt(ShapeBoard& shape_board,std::vector<int> V, Color c)
+void Shape::AssignTilesAt(RawShape& shape_board,std::vector<int> V, Color c)
 {
 	for (int v : V)
 	{
@@ -30,9 +30,9 @@ Shapes::Straight::Straight()
 	shape = GetShapeVersion(Rotation::up);
 }
 
-ShapeBoard Shapes::Straight::GetShapeVersion(Rotation R) const
+RawShape Shapes::Straight::GetShapeVersion(Rotation R) const
 {
-	ShapeBoard temp = ShapeBoard();
+	RawShape temp = RawShape();
 	temp.resize(4 * 4);
 	//filling the right shape.
 
@@ -60,7 +60,6 @@ void Shapes::Straight::RotateRight()
 {
 	current_rotation = (Rotation)( ( (int)current_rotation + 1) %4);
 	shape = GetShapeVersion(current_rotation);
-
 }
 
 void Shapes::Straight::RotateLeft()
@@ -76,11 +75,12 @@ Shapes::Square::Square()
 	shape = GetShapeVersion(Rotation::up);
 }
 
-ShapeBoard Shapes::Square::GetShapeVersion(Rotation R) const
+RawShape Shapes::Square::GetShapeVersion(Rotation R) const
 {
-	ShapeBoard temp = ShapeBoard();
+	RawShape temp = RawShape();
 	temp.resize(2 * 2);
 	//filling the right shape.
+	assert((int)R == 0 || (int)R == 1 || (int)R == 2 || (int)R == 3); //if assertion fails: Rotation does not exist (values from 0 to 3 only).
 	AssignTilesAt(temp, { 0,1,2,3 }, Colors::Yellow);
 	return std::move(temp);
 }
@@ -93,4 +93,48 @@ void Shapes::Square::RotateRight()
 void Shapes::Square::RotateLeft()
 {
 	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
+}
+
+Shapes::Tee::Tee()
+	:
+	Shape(3,3)
+{
+	shape = GetShapeVersion(Rotation::up);
+}
+
+RawShape Shapes::Tee::GetShapeVersion(Rotation R) const
+{
+	RawShape temp = RawShape();
+	temp.resize(3 * 3);
+	//filling the right shape.
+	switch (R)
+	{
+	case Rotation::up:
+		AssignTilesAt(temp, { 1,3,4,5 }, Colors::Magenta);
+		break;
+	case Rotation::right:
+		AssignTilesAt(temp, { 1,4,5,7 }, Colors::Magenta);
+		break;
+	case Rotation::down:
+		AssignTilesAt(temp, { 3,4,5,7 }, Colors::Magenta);
+		break;
+	case Rotation::left:
+		AssignTilesAt(temp, { 1,3,4,7 }, Colors::Magenta);
+		break;
+	default:
+		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+	}
+	return std::move(temp);
+}
+
+void Shapes::Tee::RotateRight()
+{
+	current_rotation = (Rotation)(((int)current_rotation + 1) % 4);
+	shape = GetShapeVersion(current_rotation);
+}
+
+void Shapes::Tee::RotateLeft()
+{
+	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
+	shape = GetShapeVersion(current_rotation);
 }
