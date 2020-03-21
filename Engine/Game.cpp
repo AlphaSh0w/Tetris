@@ -54,7 +54,7 @@ void Game::UpdateModel()
 	sqtest.RotateLeft();
 	sqtest.RotateLeft();
 
-	std::unique_ptr<Shape> shapeptr = std::make_unique<Shapes::Jay>();
+	std::unique_ptr<Shape> shapeptr = std::make_unique<Shapes::Square>();
 	shapeptr->GetRawShape();
 	shapeptr->RotateLeft();
 	shapeptr->GetRawShape();

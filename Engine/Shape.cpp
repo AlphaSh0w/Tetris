@@ -47,20 +47,20 @@ RawShape Shapes::Straight::GetShapeVersion(Rotation R) const
 	RawShape temp = RawShape();
 	temp.resize(4 * 4);
 	//filling the right shape.
-
+	Color c = Colors::Blue;
 	switch (R)
 	{
 	case Rotation::up:
-		AssignTilesAt(temp, {4,5,6,7}, Colors::Blue);
+		AssignTilesAt(temp, {4,5,6,7}, c);
 		break;
 	case Rotation::right:
-		AssignTilesAt(temp, { 2,6,10,14 }, Colors::Blue);
+		AssignTilesAt(temp, { 2,6,10,14 }, c);
 		break;
 	case Rotation::down:
-		AssignTilesAt(temp, { 8,9,10,11 }, Colors::Blue);
+		AssignTilesAt(temp, { 8,9,10,11 }, c);
 		break;
 	case Rotation::left:
-		AssignTilesAt(temp, { 1,5,9,13 }, Colors::Blue);
+		AssignTilesAt(temp, { 1,5,9,13 }, c);
 		break;
 	default:
 		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
@@ -97,19 +97,20 @@ RawShape Shapes::Tee::GetShapeVersion(Rotation R) const
 	RawShape temp = RawShape();
 	temp.resize(3 * 3);
 	//filling the right shape.
+	Color c = Colors::Magenta;
 	switch (R)
 	{
 	case Rotation::up:
-		AssignTilesAt(temp, { 1,3,4,5 }, Colors::Magenta);
+		AssignTilesAt(temp, { 1,3,4,5 }, c);
 		break;
 	case Rotation::right:
-		AssignTilesAt(temp, { 1,4,5,7 }, Colors::Magenta);
+		AssignTilesAt(temp, { 1,4,5,7 }, c);
 		break;
 	case Rotation::down:
-		AssignTilesAt(temp, { 3,4,5,7 }, Colors::Magenta);
+		AssignTilesAt(temp, { 3,4,5,7 }, c);
 		break;
 	case Rotation::left:
-		AssignTilesAt(temp, { 1,3,4,7 }, Colors::Magenta);
+		AssignTilesAt(temp, { 1,3,4,7 }, c);
 		break;
 	default:
 		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
@@ -129,19 +130,20 @@ RawShape Shapes::Jay::GetShapeVersion(Rotation R) const
 	RawShape temp = RawShape();
 	temp.resize(3 * 3);
 	//filling the right shape.
+	Color c = Colors::Cyan;
 	switch (R)
 	{
 	case Rotation::up:
-		AssignTilesAt(temp, { 0,3,4,5 }, Colors::Cyan);
+		AssignTilesAt(temp, { 0,3,4,5 }, c);
 		break;
 	case Rotation::right:
-		AssignTilesAt(temp, { 1,2,4,7 }, Colors::Cyan);
+		AssignTilesAt(temp, { 1,2,4,7 }, c);
 		break;
 	case Rotation::down:
-		AssignTilesAt(temp, { 3,4,5,8 }, Colors::Cyan);
+		AssignTilesAt(temp, { 3,4,5,8 }, c);
 		break;
 	case Rotation::left:
-		AssignTilesAt(temp, { 1,4,6,7 }, Colors::Cyan);
+		AssignTilesAt(temp, { 1,4,6,7 }, c);
 		break;
 	default:
 		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
@@ -149,4 +151,35 @@ RawShape Shapes::Jay::GetShapeVersion(Rotation R) const
 	return std::move(temp);
 }
 
+Shapes::El::El()
+	:
+	Shape(3,3)
+{
+	shape = GetShapeVersion(Rotation::up);
+}
 
+RawShape Shapes::El::GetShapeVersion(Rotation R) const
+{
+	RawShape temp = RawShape();
+	temp.resize(3 * 3);
+	//filling the right shape.
+	Color c = Color(255, 162, 0); //orange color
+	switch (R)
+	{
+	case Rotation::up:
+		AssignTilesAt(temp, { 2,3,4,5 }, c);
+		break;
+	case Rotation::right:
+		AssignTilesAt(temp, { 1,4,7,8 }, c);
+		break;
+	case Rotation::down:
+		AssignTilesAt(temp, { 3,4,5,6 }, c);
+		break;
+	case Rotation::left:
+		AssignTilesAt(temp, { 0,1,4,7 }, c);
+		break;
+	default:
+		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+	}
+	return std::move(temp);
+}

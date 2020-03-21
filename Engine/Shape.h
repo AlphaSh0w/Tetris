@@ -66,4 +66,11 @@ namespace Shapes
 		Jay();
 		RawShape GetShapeVersion(Rotation R) const override;
 	};
+
+	class El : public Shape
+	{
+	public:
+		El();
+		RawShape GetShapeVersion(Rotation R) const override;
+	};
 }
