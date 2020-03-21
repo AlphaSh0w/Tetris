@@ -1,6 +1,18 @@
 #include "Shape.h"
 #include <assert.h>
 
+void Shape::RotateLeft()
+{
+	current_rotation = (Rotation)(((int)current_rotation + 1) % 4);
+	shape = GetShapeVersion(current_rotation);
+}
+
+void Shape::RotateRight()
+{
+	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
+	shape = GetShapeVersion(current_rotation);
+}
+
 const std::vector<std::unique_ptr<Tile>>& Shape::GetRawShape()
 {
 	return shape;
@@ -56,18 +68,6 @@ RawShape Shapes::Straight::GetShapeVersion(Rotation R) const
 	return std::move(temp);
 }
 
-void Shapes::Straight::RotateRight()
-{
-	current_rotation = (Rotation)( ( (int)current_rotation + 1) %4);
-	shape = GetShapeVersion(current_rotation);
-}
-
-void Shapes::Straight::RotateLeft()
-{
-	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
-	shape = GetShapeVersion(current_rotation);
-}
-
 Shapes::Square::Square()
 	:
 	Shape(2,2)
@@ -83,16 +83,6 @@ RawShape Shapes::Square::GetShapeVersion(Rotation R) const
 	assert((int)R == 0 || (int)R == 1 || (int)R == 2 || (int)R == 3); //if assertion fails: Rotation does not exist (values from 0 to 3 only).
 	AssignTilesAt(temp, { 0,1,2,3 }, Colors::Yellow);
 	return std::move(temp);
-}
-
-void Shapes::Square::RotateRight()
-{
-	current_rotation = (Rotation)(((int)current_rotation + 1) % 4);
-}
-
-void Shapes::Square::RotateLeft()
-{
-	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
 }
 
 Shapes::Tee::Tee()
@@ -127,18 +117,6 @@ RawShape Shapes::Tee::GetShapeVersion(Rotation R) const
 	return std::move(temp);
 }
 
-void Shapes::Tee::RotateRight()
-{
-	current_rotation = (Rotation)(((int)current_rotation + 1) % 4);
-	shape = GetShapeVersion(current_rotation);
-}
-
-void Shapes::Tee::RotateLeft()
-{
-	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
-	shape = GetShapeVersion(current_rotation);
-}
-
 Shapes::Jay::Jay()
 	:
 	Shape(3,3)
@@ -171,14 +149,4 @@ RawShape Shapes::Jay::GetShapeVersion(Rotation R) const
 	return std::move(temp);
 }
 
-void Shapes::Jay::RotateRight()
-{
-	current_rotation = (Rotation)(((int)current_rotation + 1) % 4);
-	shape = GetShapeVersion(current_rotation);
-}
 
-void Shapes::Jay::RotateLeft()
-{
-	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
-	shape = GetShapeVersion(current_rotation);
-}

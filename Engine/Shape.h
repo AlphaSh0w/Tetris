@@ -18,8 +18,8 @@ public:
 	};
 public:
 	virtual RawShape GetShapeVersion(Rotation R) const = 0;
-	virtual void RotateLeft() = 0;
-	virtual void RotateRight() = 0;
+	virtual void RotateLeft();
+	virtual void RotateRight();
 
 	const RawShape& GetRawShape();
 	//static std::unique_ptr<Shape> GenerateRandomShape(); //to be implemented once the shapes are implemented.
@@ -44,9 +44,6 @@ namespace Shapes
 	public:
 		Straight();
 		RawShape GetShapeVersion(Rotation R) const override;
-		void RotateRight() override;
-		void RotateLeft() override;
-
 	};
 
 	class Square : public Shape
@@ -54,8 +51,6 @@ namespace Shapes
 	public:
 		Square();
 		RawShape GetShapeVersion(Rotation R) const override;
-		void RotateRight() override;
-		void RotateLeft() override;
 	};
 
 	class Tee : public Shape
@@ -63,8 +58,6 @@ namespace Shapes
 	public:
 		Tee();
 		RawShape GetShapeVersion(Rotation R) const override;
-		void RotateRight() override;
-		void RotateLeft() override;
 	};
 
 	class Jay : public Shape
@@ -72,7 +65,5 @@ namespace Shapes
 	public:
 		Jay();
 		RawShape GetShapeVersion(Rotation R) const override;
-		void RotateRight() override;
-		void RotateLeft() override;
 	};
 }
