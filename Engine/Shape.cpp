@@ -55,3 +55,16 @@ ShapeBoard Shapes::Straight::GetShapeVersion(Rotation R) const
 	return std::move(temp);
 }
 
+void Shapes::Straight::RotateRight()
+{
+	current_rotation = (Rotation)( ( (int)current_rotation + 1) %4);
+	shape = GetShapeVersion(current_rotation);
+
+}
+
+void Shapes::Straight::RotateLeft()
+{
+	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
+	shape = GetShapeVersion(current_rotation);
+}
+

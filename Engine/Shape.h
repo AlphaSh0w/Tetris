@@ -11,15 +11,17 @@ class Shape
 public:
 	enum class Rotation
 	{
-		up,
-		right,
-		down,
-		left
+		up = 0,
+		right = 1,
+		down = 2,
+		left = 3
 	};
 public:
-	//virtual void RotateLeft() = 0;
-	//virtual void RotateRight() = 0;
 	virtual ShapeBoard GetShapeVersion(Rotation R) const = 0;
+
+	virtual void RotateLeft() = 0;
+	virtual void RotateRight() = 0;
+
 	const ShapeBoard& GetShape();
 	//static std::unique_ptr<Shape> GenerateRandomShape(); //to be implemented once the shapes are implemented.
 
@@ -27,11 +29,11 @@ public:
 protected:
 	Shape(int rows, int columns);
 	static void AssignTilesAt(ShapeBoard& shape_board,std::vector<int> V, Color c); //fills the shapeboard at V positions with color c
-private:
+	Rotation current_rotation = Rotation::up;
 	ShapeBoard shape;
+private:
 	int rows;
 	int columns;
-	Rotation current_rotation = Rotation::up;
 	
 };
 
@@ -41,6 +43,9 @@ namespace Shapes
 	{
 	public:
 		Straight();
-		ShapeBoard GetShapeVersion(Rotation R) const;
+		ShapeBoard GetShapeVersion(Rotation R) const override;
+		void RotateRight() override;
+		void RotateLeft() override;
+
 	};
 }
