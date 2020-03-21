@@ -66,4 +66,13 @@ namespace Shapes
 		void RotateRight() override;
 		void RotateLeft() override;
 	};
+
+	class Jay : public Shape
+	{
+	public:
+		Jay();
+		RawShape GetShapeVersion(Rotation R) const override;
+		void RotateRight() override;
+		void RotateLeft() override;
+	};
 }

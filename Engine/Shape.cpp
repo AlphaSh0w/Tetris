@@ -138,3 +138,47 @@ void Shapes::Tee::RotateLeft()
 	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
 	shape = GetShapeVersion(current_rotation);
 }
+
+Shapes::Jay::Jay()
+	:
+	Shape(3,3)
+{
+	shape = GetShapeVersion(Rotation::up);
+}
+
+RawShape Shapes::Jay::GetShapeVersion(Rotation R) const
+{
+	RawShape temp = RawShape();
+	temp.resize(3 * 3);
+	//filling the right shape.
+	switch (R)
+	{
+	case Rotation::up:
+		AssignTilesAt(temp, { 0,3,4,5 }, Colors::Cyan);
+		break;
+	case Rotation::right:
+		AssignTilesAt(temp, { 1,2,4,7 }, Colors::Cyan);
+		break;
+	case Rotation::down:
+		AssignTilesAt(temp, { 3,4,5,8 }, Colors::Cyan);
+		break;
+	case Rotation::left:
+		AssignTilesAt(temp, { 1,4,6,7 }, Colors::Cyan);
+		break;
+	default:
+		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+	}
+	return std::move(temp);
+}
+
+void Shapes::Jay::RotateRight()
+{
+	current_rotation = (Rotation)(((int)current_rotation + 1) % 4);
+	shape = GetShapeVersion(current_rotation);
+}
+
+void Shapes::Jay::RotateLeft()
+{
+	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
+	shape = GetShapeVersion(current_rotation);
+}
