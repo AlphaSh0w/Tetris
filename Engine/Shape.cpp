@@ -183,3 +183,69 @@ RawShape Shapes::El::GetShapeVersion(Rotation R) const
 	}
 	return std::move(temp);
 }
+
+Shapes::SkewS::SkewS()
+	:
+	Shape(3,3)
+{
+	shape = GetShapeVersion(Rotation::up);
+}
+
+RawShape Shapes::SkewS::GetShapeVersion(Rotation R) const
+{
+	RawShape temp = RawShape();
+	temp.resize(3 * 3);
+	//filling the right shape.
+	Color c = Colors::Green; //orange color
+	switch (R)
+	{
+	case Rotation::up:
+		AssignTilesAt(temp, { 1,2,3,4 }, c);
+		break;
+	case Rotation::right:
+		AssignTilesAt(temp, { 1,4,5,8 }, c);
+		break;
+	case Rotation::down:
+		AssignTilesAt(temp, { 4,5,6,7 }, c);
+		break;
+	case Rotation::left:
+		AssignTilesAt(temp, { 0,3,4,7 }, c);
+		break;
+	default:
+		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+	}
+	return std::move(temp);
+}
+
+Shapes::SkewZ::SkewZ()
+	:
+	Shape(3,3)
+{
+	shape = GetShapeVersion(Rotation::up);
+}
+
+RawShape Shapes::SkewZ::GetShapeVersion(Rotation R) const
+{
+	RawShape temp = RawShape();
+	temp.resize(3 * 3);
+	//filling the right shape.
+	Color c = Colors::Red; //orange color
+	switch (R)
+	{
+	case Rotation::up:
+		AssignTilesAt(temp, { 0,1,4,5 }, c);
+		break;
+	case Rotation::right:
+		AssignTilesAt(temp, { 2,4,5,7 }, c);
+		break;
+	case Rotation::down:
+		AssignTilesAt(temp, { 4,5,7,8 }, c);
+		break;
+	case Rotation::left:
+		AssignTilesAt(temp, { 1,3,4,6 }, c);
+		break;
+	default:
+		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+	}
+	return std::move(temp);
+}

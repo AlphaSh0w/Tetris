@@ -73,4 +73,18 @@ namespace Shapes
 		El();
 		RawShape GetShapeVersion(Rotation R) const override;
 	};
+
+	class SkewS : public Shape
+	{
+	public:
+		SkewS();
+		RawShape GetShapeVersion(Rotation R) const override;
+	};
+
+	class SkewZ : public Shape
+	{
+	public:
+		SkewZ();
+		RawShape GetShapeVersion(Rotation R) const override;
+	};
 }
