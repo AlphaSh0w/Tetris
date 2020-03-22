@@ -22,14 +22,13 @@ public:
 	virtual void RotateRight();
 
 	const RawShape& GetRawShape();
-	//static std::unique_ptr<Shape> GenerateRandomShape(); //to be implemented once the shapes are implemented.
+	static std::unique_ptr<Shape> GenerateRandomShape();
 
 	virtual ~Shape() = default;
 protected:
 	Shape(int rows, int columns);
 	Rotation current_rotation = Rotation::up;
 	RawShape shape;
-
 	static void AssignTilesAt(RawShape& shape_board,std::vector<int> V, Color c); //fills the shapeboard at V positions with color c
 private:
 	int rows;

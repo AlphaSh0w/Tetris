@@ -1,5 +1,6 @@
 #include "Shape.h"
 #include <assert.h>
+#include <random>
 
 void Shape::RotateLeft()
 {
@@ -16,6 +17,41 @@ void Shape::RotateRight()
 const std::vector<std::unique_ptr<Tile>>& Shape::GetRawShape()
 {
 	return shape;
+}
+
+std::unique_ptr<Shape> Shape::GenerateRandomShape()
+{
+	std::random_device rd;
+	std::mt19937 rng(rd());
+	std::uniform_int_distribution<int> shape_dist(0, 6);
+	switch (shape_dist(rng))
+	{
+	case 0:
+		return std::make_unique<Shapes::Straight>();
+		break;
+	case 1:
+		return std::make_unique<Shapes::Square>();
+		break;
+	case 2:
+		return std::make_unique<Shapes::Tee>();
+		break;
+	case 3:
+		return std::make_unique<Shapes::Jay>();
+		break;
+	case 4:
+		return std::make_unique<Shapes::El>();
+		break;
+	case 5:
+		return std::make_unique<Shapes::SkewS>();
+		break;
+	case 6:
+		return std::make_unique<Shapes::SkewZ>();
+		break;
+	default:
+		assert(false); //Assertion fail: something is wrong with the rng.
+		return nullptr;
+		break;
+	}
 }
 
 Shape::Shape(int rows, int columns)
@@ -64,6 +100,7 @@ RawShape Shapes::Straight::GetShapeVersion(Rotation R) const
 		break;
 	default:
 		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+		break;
 	}
 	return std::move(temp);
 }
@@ -114,6 +151,7 @@ RawShape Shapes::Tee::GetShapeVersion(Rotation R) const
 		break;
 	default:
 		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+		break;
 	}
 	return std::move(temp);
 }
@@ -147,6 +185,7 @@ RawShape Shapes::Jay::GetShapeVersion(Rotation R) const
 		break;
 	default:
 		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+		break;
 	}
 	return std::move(temp);
 }
@@ -180,6 +219,7 @@ RawShape Shapes::El::GetShapeVersion(Rotation R) const
 		break;
 	default:
 		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+		break;
 	}
 	return std::move(temp);
 }
@@ -213,6 +253,7 @@ RawShape Shapes::SkewS::GetShapeVersion(Rotation R) const
 		break;
 	default:
 		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+		break;
 	}
 	return std::move(temp);
 }
@@ -246,6 +287,7 @@ RawShape Shapes::SkewZ::GetShapeVersion(Rotation R) const
 		break;
 	default:
 		assert(false); //assertion: Rotation does not exist (values from 0 to 3 only).
+		break;
 	}
 	return std::move(temp);
 }
