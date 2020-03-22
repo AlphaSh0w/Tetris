@@ -21,8 +21,11 @@ public:
 	virtual void RotateLeft();
 	virtual void RotateRight();
 
-	const RawShape& GetRawShape();
+	const RawShape& GetRawShape() const;
 	static std::unique_ptr<Shape> GenerateRandomShape();
+
+	int GetNumberOfRows() const;
+	int GetNumberOfColumns() const;
 
 	virtual ~Shape() = default;
 protected:
@@ -33,7 +36,6 @@ protected:
 private:
 	int rows;
 	int columns;
-	
 };
 
 namespace Shapes

@@ -10,11 +10,19 @@ void Shape::RotateLeft()
 
 void Shape::RotateRight()
 {
-	current_rotation = (Rotation)((std::abs((int)current_rotation - 1)) % 4);
+	int int_rotation = (int)current_rotation - 1;
+	if (int_rotation < 0)
+	{
+		current_rotation = (Rotation)3;
+	}
+	else
+	{
+		current_rotation = (Rotation)int_rotation;
+	}
 	shape = GetShapeVersion(current_rotation);
 }
 
-const std::vector<std::unique_ptr<Tile>>& Shape::GetRawShape()
+const std::vector<std::unique_ptr<Tile>>& Shape::GetRawShape() const
 {
 	return shape;
 }
@@ -52,6 +60,16 @@ std::unique_ptr<Shape> Shape::GenerateRandomShape()
 		return nullptr;
 		break;
 	}
+}
+
+int Shape::GetNumberOfRows() const
+{
+	return rows;
+}
+
+int Shape::GetNumberOfColumns() const
+{
+	return columns;
 }
 
 Shape::Shape(int rows, int columns)
