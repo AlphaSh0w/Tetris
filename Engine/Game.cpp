@@ -20,13 +20,15 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
-#include "Shape.h"
+
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	tilescren(50, 50, 35, gfx)
 {
+	shapeptr = Shape::GenerateRandomShape();
 }
 
 void Game::Go()
@@ -40,27 +42,24 @@ void Game::Go()
 void Game::UpdateModel()
 {
 
-	Shapes::Straight test;
-	RawShape temp = test.GetShapeVersion(Shape::Rotation::up);
-	temp = test.GetShapeVersion(Shape::Rotation::right);
-	temp = test.GetShapeVersion(Shape::Rotation::down);
-	temp = test.GetShapeVersion(Shape::Rotation::left);
-	test.RotateRight();
-	test.RotateRight();
-	test.RotateRight();
-	test.RotateRight();
-	Shapes::Square sqtest;
-	sqtest.RotateLeft();
-	sqtest.RotateLeft();
-	sqtest.RotateLeft();
+	while (!wnd.kbd.KeyIsEmpty())
+	{
+		const auto e = wnd.kbd.ReadKey();
+		if (e.IsPress() && e.GetCode() == 'W')
+		{
+			shapeptr->RotateLeft();
+		}
+		if (e.IsPress() && e.GetCode() == 'X')
+		{
+			shapeptr->RotateRight();
+		}
+	}
 
-	std::unique_ptr<Shape> shapeptr = Shape::GenerateRandomShape();
-	shapeptr->GetRawShape();
-	shapeptr->RotateLeft();
-	shapeptr->GetRawShape();
-	shapeptr->RotateLeft();
+
+
 }
 
 void Game::ComposeFrame()
 {
+	tilescren.Draw(*shapeptr);
 }

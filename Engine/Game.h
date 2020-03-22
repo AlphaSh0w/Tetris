@@ -23,6 +23,8 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Shape.h"
+#include "TileScreen.h"
 
 class Game
 {
@@ -42,5 +44,7 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	std::unique_ptr<Shape> shapeptr;
+	TileScreen tilescren;
 	/********************************/
 };

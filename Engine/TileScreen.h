@@ -1,12 +1,19 @@
 #pragma once
 #include "Shape.h"
 #include "Vect.h"
+#include "Graphics.h"
 class TileScreen
 {
 public:
-	TileScreen(int x, int y);
-	TileScreen(Vect<int> origin);
+	TileScreen(int x, int y, int tile_dimension, Graphics& gfx);
+	TileScreen(Vect<int> origin, int tile_dimension, Graphics& gfx);
+
+	void Draw(Shape& S) const;
+public:
+	static constexpr int padding = 5;
 private:
 	Vect<int> origin;
+	int tile_dimension;
+	Graphics& gfx;
 };
 
