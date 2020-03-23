@@ -32,4 +32,14 @@ void TileScreen::Draw(Shape & S) const
 	}
 }
 
+Vect<int> TileScreen::GetOrigin() const
+{
+	return origin;
+}
+
+void TileScreen::SetOrigin(Vect<int> new_origin)
+{
+	origin = new_origin;
+}
+
 

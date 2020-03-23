@@ -9,6 +9,9 @@ public:
 	TileScreen(Vect<int> origin, int tile_dimension, Graphics& gfx);
 
 	void Draw(Shape& S) const;
+
+	Vect<int> GetOrigin() const;
+	void SetOrigin(Vect<int> new_origin);
 public:
 	static constexpr int padding = 5;
 private:
