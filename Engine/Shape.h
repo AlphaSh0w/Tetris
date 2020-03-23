@@ -20,14 +20,12 @@ public:
 	virtual RawShape GetShapeVersion(Rotation R) const = 0;
 	virtual void RotateLeft();
 	virtual void RotateRight();
-
 	const RawShape& GetRawShape() const;
 	static std::unique_ptr<Shape> GenerateRandomShape();
-
 	int GetNumberOfRows() const;
 	int GetNumberOfColumns() const;
-
 	virtual ~Shape() = default;
+	std::unique_ptr<Tile>& operator[](int index);
 protected:
 	Shape(int rows, int columns);
 	Rotation current_rotation = Rotation::up;

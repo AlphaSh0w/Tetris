@@ -72,6 +72,11 @@ int Shape::GetNumberOfColumns() const
 	return columns;
 }
 
+std::unique_ptr<Tile>& Shape::operator[](int index)
+{
+	return shape[index];
+}
+
 Shape::Shape(int rows, int columns)
 	:
 	rows(rows),
@@ -298,7 +303,7 @@ RawShape Shapes::SkewZ::GetShapeVersion(Rotation R) const
 		AssignTilesAt(temp, { 2,4,5,7 }, c);
 		break;
 	case Rotation::down:
-		AssignTilesAt(temp, { 4,5,7,8 }, c);
+		AssignTilesAt(temp, { 3,4,7,8 }, c);
 		break;
 	case Rotation::left:
 		AssignTilesAt(temp, { 1,3,4,6 }, c);
