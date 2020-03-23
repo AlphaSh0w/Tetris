@@ -27,14 +27,14 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	tilescren(50, 50, 35, gfx),
-	board(5,5,gfx,100,100)
+	board(10,15,gfx,100,100)
 {
 	shapeptr = Shape::GenerateRandomShape();
-	board.SetTile(2, 2, std::make_unique<Tile>(Colors::Blue));
-	board.SetTile(2, 1, std::make_unique<Tile>(Colors::Blue));
-	board.SetTile(2, 4, std::make_unique<Tile>(Colors::Blue));
-	board.SetTile(3, 4, std::make_unique<Tile>(Colors::Red));
-	board.SetTile(2, 4, std::make_unique<Tile>(Colors::Red));
+	board.SetTile(0, 0, std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(14, 0, std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(0, 9, std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(14, 9, std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(1, 6, std::make_unique<Tile>(Colors::Red));
 }
 
 void Game::Go()
@@ -47,7 +47,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-
+	board.CheckTemp();
 	while (!wnd.kbd.KeyIsEmpty())
 	{
 		const auto e = wnd.kbd.ReadKey();
@@ -60,12 +60,11 @@ void Game::UpdateModel()
 			shapeptr->RotateRight();
 		}
 	}
-
-
 }
 
 void Game::ComposeFrame()
 {
 	tilescren.Draw(*shapeptr);
 	board.DrawContent();
+	board.DrawCurrentShape();
 }
