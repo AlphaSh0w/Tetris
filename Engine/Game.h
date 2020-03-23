@@ -25,6 +25,7 @@
 #include "Graphics.h"
 #include "Shape.h"
 #include "TileScreen.h"
+#include "Board.h"
 
 class Game
 {
@@ -46,5 +47,7 @@ private:
 	/*  User Variables              */
 	std::unique_ptr<Shape> shapeptr;
 	TileScreen tilescren;
+	Board board;
+	int a = 0;
 	/********************************/
 };

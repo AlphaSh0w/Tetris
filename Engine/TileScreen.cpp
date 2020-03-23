@@ -14,22 +14,28 @@ TileScreen::TileScreen(Vect<int> origin, int tile_dimension, Graphics& gfx)
 {
 }
 
-void TileScreen::Draw(Shape & S) const
+void TileScreen::Draw(const RawShape & S, int rows, int columns) const
 {
-	for (int rows = 0; rows < S.GetNumberOfRows(); rows++)
+	for (int r = 0; r < rows; r++)
 	{
-		for (int columns = 0; columns < S.GetNumberOfColumns(); columns++)
+		for (int c = 0; c < columns; c++)
 		{
-			int index = rows * S.GetNumberOfColumns() + columns;
+			int index = r * columns + c;
 			if (S[index] != nullptr)
 			{
-				Vect<int> topleft = { tile_dimension * columns + origin.x + padding, tile_dimension * rows + origin.y + padding };
-				Vect<int> bottomright = { topleft.x + tile_dimension - padding, topleft.y + tile_dimension - padding};
+				Vect<int> topleft = { tile_dimension * c + origin.x + padding, tile_dimension * r + origin.y + padding };
+				Vect<int> bottomright = { topleft.x + tile_dimension - padding, topleft.y + tile_dimension - padding };
 				gfx.DrawRect(topleft, bottomright, *S[index]);
 			}
 		}
 	}
 }
+
+void TileScreen::Draw(Shape & S) const
+{
+	Draw(S.GetRawShape(), S.GetNumberOfRows(), S.GetNumberOfColumns());
+}
+
 
 Vect<int> TileScreen::GetOrigin() const
 {

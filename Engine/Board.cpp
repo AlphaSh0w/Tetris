@@ -14,12 +14,16 @@ Board::Board(int rows, int columns, Graphics& gfx,int x, int y)
 	next_shape = Shape::GenerateRandomShape();
 }
 
+void Board::DrawContent()
+{
+	content_screen.Draw(content, rows, columns);
+}
 
 
 void Board::SetTile(Vect<int> pos, std::unique_ptr<Tile> tile)
 {
-	assert(pos.x <= columns);//assertion : x bigger than the number of columns.
-	assert(pos.y <= rows);//assertion : y bigger than the number of rows.
+	assert(pos.x < columns);//assertion : x bigger than the number of columns.
+	assert(pos.y < rows);//assertion : y bigger than the number of rows.
 
 	int index = pos.y * rows + pos.x;
 	content[index] = std::move(tile);

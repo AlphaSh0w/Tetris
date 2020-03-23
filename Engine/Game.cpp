@@ -26,9 +26,15 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	tilescren(50, 50, 35, gfx)
+	tilescren(50, 50, 35, gfx),
+	board(5,5,gfx,100,100)
 {
 	shapeptr = Shape::GenerateRandomShape();
+	board.SetTile(2, 2, std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(2, 1, std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(2, 4, std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(3, 4, std::make_unique<Tile>(Colors::Red));
+	board.SetTile(2, 4, std::make_unique<Tile>(Colors::Red));
 }
 
 void Game::Go()
@@ -55,9 +61,11 @@ void Game::UpdateModel()
 		}
 	}
 
+
 }
 
 void Game::ComposeFrame()
 {
 	tilescren.Draw(*shapeptr);
+	board.DrawContent();
 }

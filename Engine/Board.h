@@ -8,9 +8,10 @@ class Board
 public:
 	Board(int rows, int columns,Graphics& gfx, int x, int y);
 
-private:
+	void DrawContent();
 	void SetTile(Vect<int> pos, std::unique_ptr<Tile> tile);
 	void SetTile(int x, int y, std::unique_ptr<Tile> tile);
+private:
 
 	static constexpr int tile_dimension = 35;
 	static constexpr int default_shape_x = 5;
