@@ -1,12 +1,12 @@
 #include "Board.h"
 #include <assert.h>
 
-Board::Board(int rows, int columns, Graphics& gfx,int x, int y)
+Board::Board(Vect<int> dimension, Graphics& gfx,int x, int y)
 	:
-	rows(rows),
-	columns(columns),
+	rows(dimension.y),
+	columns(dimension.x),
 	content_screen(x,y,tile_dimension,gfx),
-	current_shape_screen(x + (default_shape_x * tile_dimension),y + (default_shape_y * tile_dimension),tile_dimension,gfx),
+	current_shape_screen(x + (default_shape_x_T * tile_dimension),y + (default_shape_y_T * tile_dimension),tile_dimension,gfx),
 	shape_origin_T(5,0)
 {
 	assert(rows > 0 && columns > 0); //If assertion fails : rows or columns value is <= 0
@@ -31,13 +31,8 @@ void Board::SetTile(Vect<int> pos, std::unique_ptr<Tile> tile)
 	assert(pos.x < columns);//assertion : x bigger than the number of columns.
 	assert(pos.y < rows);//assertion : y bigger than the number of rows.
 
-	int index = pos.y * rows + pos.x;
+	int index = pos.y * columns + pos.x;
 	content[index] = std::move(tile);
-}
-
-void Board::SetTile(int x, int y, std::unique_ptr<Tile> tile)
-{
-	SetTile(Vect<int>(x,y), std::move(tile));
 }
 
 bool Board::CheckTemp()

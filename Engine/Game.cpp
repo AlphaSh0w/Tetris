@@ -27,14 +27,26 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	tilescren(50, 50, 35, gfx),
-	board(10,15,gfx,100,100)
+	board(Vect<int>(10,15),gfx,100,100)
 {
 	shapeptr = Shape::GenerateRandomShape();
-	board.SetTile(0, 0, std::make_unique<Tile>(Colors::Blue));
-	board.SetTile(14, 0, std::make_unique<Tile>(Colors::Blue));
-	board.SetTile(0, 9, std::make_unique<Tile>(Colors::Blue));
-	board.SetTile(14, 9, std::make_unique<Tile>(Colors::Blue));
-	board.SetTile(1, 6, std::make_unique<Tile>(Colors::Red));
+	board.SetTile(Vect<int>(0,0), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(1,0), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(2,0), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(3,0), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(4,0), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(5,0), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(6,0), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(7,0), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(8,0), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(9,0), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(0,1), std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(1,1), std::make_unique<Tile>(Colors::Blue));
+
+	//board.SetTile(14, 0, std::make_unique<Tile>(Colors::Blue));
+	//board.SetTile(0, 9, std::make_unique<Tile>(Colors::Blue));
+	//board.SetTile(14, 9, std::make_unique<Tile>(Colors::Blue));
+	//board.SetTile(1, 6, std::make_unique<Tile>(Colors::Red));
 }
 
 void Game::Go()
@@ -66,5 +78,5 @@ void Game::ComposeFrame()
 {
 	tilescren.Draw(*shapeptr);
 	board.DrawContent();
-	board.DrawCurrentShape();
+	//board.DrawCurrentShape();
 }
