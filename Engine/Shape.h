@@ -22,11 +22,13 @@ public:
 	virtual void RotateRight();
 	Rotation GetCurrentRotation();
 	const RawShape& GetRawShape() const;
-	static std::unique_ptr<Shape> GenerateRandomShape();
 	int GetNumberOfRows() const;
 	int GetNumberOfColumns() const;
 	virtual ~Shape() = default;
 	std::unique_ptr<Tile>& operator[](int index);
+	static std::unique_ptr<Shape> GenerateRandomShape();
+	Rotation GetLeftRotationDirection();
+	Rotation GetRightRotationDirection();
 protected:
 	Shape(int rows, int columns);
 	Rotation current_rotation = Rotation::up;

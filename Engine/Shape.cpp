@@ -4,22 +4,13 @@
 
 void Shape::RotateLeft()
 {
-	current_rotation = (Rotation)(((int)current_rotation + 1) % 4);
+	current_rotation = GetLeftRotationDirection();
 	shape = GetShapeVersion(current_rotation);
 }
 
 void Shape::RotateRight()
 {
-	int int_rotation = (int)current_rotation - 1;
-	if (int_rotation < 0)
-	{
-		current_rotation = (Rotation)3;
-	}
-	else
-	{
-		current_rotation = (Rotation)int_rotation;
-	}
-	shape = GetShapeVersion(current_rotation);
+	shape = GetShapeVersion(GetRightRotationDirection());
 }
 
 Shape::Rotation Shape::GetCurrentRotation()
@@ -64,6 +55,24 @@ std::unique_ptr<Shape> Shape::GenerateRandomShape()
 		assert(false); //Assertion fail: something is wrong with the rng.
 		return nullptr;
 		break;
+	}
+}
+
+Shape::Rotation Shape::GetLeftRotationDirection()
+{
+	return (Rotation)(((int)current_rotation + 1) % 4);
+}
+
+Shape::Rotation Shape::GetRightRotationDirection()
+{
+	int int_rotation = (int)current_rotation - 1;
+	if (int_rotation < 0)
+	{
+		 return (Rotation)3;
+	}
+	else
+	{
+		return (Rotation)int_rotation;
 	}
 }
 
