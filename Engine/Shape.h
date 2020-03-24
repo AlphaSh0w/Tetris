@@ -20,6 +20,7 @@ public:
 	virtual RawShape GetShapeVersion(Rotation R) const = 0;
 	virtual void RotateLeft();
 	virtual void RotateRight();
+	Rotation GetCurrentRotation();
 	const RawShape& GetRawShape() const;
 	static std::unique_ptr<Shape> GenerateRandomShape();
 	int GetNumberOfRows() const;

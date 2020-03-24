@@ -22,6 +22,11 @@ void Shape::RotateRight()
 	shape = GetShapeVersion(current_rotation);
 }
 
+Shape::Rotation Shape::GetCurrentRotation()
+{
+	return current_rotation;
+}
+
 const std::vector<std::unique_ptr<Tile>>& Shape::GetRawShape() const
 {
 	return shape;

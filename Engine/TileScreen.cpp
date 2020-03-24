@@ -31,6 +31,21 @@ void TileScreen::Draw(const RawShape & S, int rows, int columns) const
 	}
 }
 
+void TileScreen::ShiftLeft()
+{
+	origin += Vect<int>(-tile_dimension, 0);
+}
+
+void TileScreen::ShiftRight()
+{
+	origin += Vect<int>(tile_dimension, 0);
+}
+
+void TileScreen::ShiftDown()
+{
+	origin += Vect<int>(0 , tile_dimension);
+}
+
 void TileScreen::Draw(Shape & S) const
 {
 	Draw(S.GetRawShape(), S.GetNumberOfRows(), S.GetNumberOfColumns());

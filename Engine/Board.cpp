@@ -15,14 +15,14 @@ Board::Board(Vect<int> dimension, Graphics& gfx,int x, int y)
 	next_shape = Shape::GenerateRandomShape();
 }
 
-void Board::DrawContent()
+void Board::DrawContent() const
 {
 	content_screen.Draw(content, rows, columns);
 }
 
-void Board::DrawCurrentShape()
+void Board::DrawCurrentShape() const
 {
-	current_shape_screen.Draw(current_shape->GetRawShape(), current_shape->GetNumberOfRows(), current_shape->GetNumberOfRows());
+	current_shape_screen.Draw(current_shape->GetRawShape(), current_shape->GetNumberOfRows(), current_shape->GetNumberOfColumns());
 }
 
 
@@ -40,6 +40,45 @@ bool Board::CheckTemp()
 	return CheckIfPuttable(*current_shape, shape_origin_T);
 }
 
+void Board::RotateShapeLeft()
+{
+	current_shape->RotateLeft();
+}
+
+void Board::RotateShapeRight()
+{
+	current_shape->RotateRight();
+}
+
+void Board::ShiftCurrentShapeToLeft()
+{
+	shape_origin_T += Vect<int>(-1, 0);
+	current_shape_screen.ShiftLeft();
+}
+
+void Board::ShiftCurrentShapeToRight()
+{
+	shape_origin_T += Vect<int>(1, 0);
+	current_shape_screen.ShiftRight();
+}
+
+void Board::ShiftCurrentShapeDown()
+{
+	shape_origin_T += Vect<int>(0, 1);
+	current_shape_screen.ShiftDown();
+}
+
+bool Board::IsCurrentShiftableLeft()
+{
+	return CheckIfPuttable(*current_shape,shape_origin_T + Vect<int>(-1,0));
+}
+
+bool Board::IsCurrentShiftableRight()
+{
+	return CheckIfPuttable(*current_shape, shape_origin_T + Vect<int>(1, 0));
+}
+
+
 bool Board::CheckIfPuttable(Shape & S, Vect<int> shape_origin_T)
 {
 	for(int r = 0; r < S.GetNumberOfRows();r++)
@@ -48,9 +87,13 @@ bool Board::CheckIfPuttable(Shape & S, Vect<int> shape_origin_T)
 		{
 			int content_index = (shape_origin_T.y + r) * columns + (c + shape_origin_T.x);
 			int shape_index = r * S.GetNumberOfColumns() + c;
-			if (S[shape_index] != nullptr && content[content_index] != nullptr)
+			if (S[shape_index] != nullptr)
 			{
-				return false;
+				if ((shape_origin_T.x + c > columns || shape_origin_T.y + r > rows ||
+					shape_origin_T.x + c < 0 || shape_origin_T.y + r < 0) || content[content_index] != nullptr)
+				{
+					return false;
+				}
 			}
 		}
 	}

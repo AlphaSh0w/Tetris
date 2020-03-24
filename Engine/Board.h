@@ -8,10 +8,17 @@ class Board
 public:
 	Board(Vect<int> pos,Graphics& gfx, int x, int y);
 
-	void DrawContent();
-	void DrawCurrentShape();
+	void DrawContent() const;
+	void DrawCurrentShape() const;
 	void SetTile(Vect<int> pos, std::unique_ptr<Tile> tile);
-	bool CheckTemp();
+	bool CheckTemp();//temporary public acces to CheckIfPuttable function with the current shape.
+	void RotateShapeLeft();
+	void RotateShapeRight();
+	void ShiftCurrentShapeToLeft();
+	void ShiftCurrentShapeToRight();
+	void ShiftCurrentShapeDown();
+	bool IsCurrentShiftableLeft();
+	bool IsCurrentShiftableRight();
 private:
 	bool CheckIfPuttable(Shape& S, Vect<int> shape_origin_T);
 private:

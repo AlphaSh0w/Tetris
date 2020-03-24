@@ -10,6 +10,9 @@ public:
 
 	void Draw(Shape& S) const;
 	void Draw(const RawShape& S, int rows, int columns) const;
+	void ShiftLeft();
+	void ShiftRight();
+	void ShiftDown();
 
 	Vect<int> GetOrigin() const;
 	void SetOrigin(Vect<int> new_origin);
