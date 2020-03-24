@@ -68,25 +68,26 @@ void Board::ShiftCurrentShapeDown()
 	current_shape_screen.ShiftDown();
 }
 
-bool Board::IsCurrentShiftableLeft()
+bool Board::IsCurrentShiftableLeft() const
 {
 	return CheckIfPuttable(*current_shape,shape_origin_T + Vect<int>(-1,0));
 }
 
-bool Board::IsCurrentShiftableRight()
+bool Board::IsCurrentShiftableRight() const
 {
 	return CheckIfPuttable(*current_shape, shape_origin_T + Vect<int>(1, 0));
 }
 
 
-bool Board::CheckIfPuttable(Shape & S, Vect<int> shape_origin_T)
+
+bool Board::CheckIfPuttable(const RawShape & S,int row, int column, Vect<int> shape_origin_T) const
 {
-	for(int r = 0; r < S.GetNumberOfRows();r++)
+	for (int r = 0; r < row; r++)
 	{
-		for (int c = 0; c < S.GetNumberOfColumns(); c++)
+		for (int c = 0; c < column; c++)
 		{
 			int content_index = (shape_origin_T.y + r) * columns + (c + shape_origin_T.x);
-			int shape_index = r * S.GetNumberOfColumns() + c;
+			int shape_index = r * column + c;
 			if (S[shape_index] != nullptr)
 			{
 				if ((shape_origin_T.x + c > columns || shape_origin_T.y + r > rows ||
@@ -98,4 +99,9 @@ bool Board::CheckIfPuttable(Shape & S, Vect<int> shape_origin_T)
 		}
 	}
 	return true;
+}
+
+bool Board::CheckIfPuttable(Shape & S, Vect<int> shape_origin_T) const
+{
+	return CheckIfPuttable(S.GetRawShape(), S.GetNumberOfRows(), S.GetNumberOfColumns(), shape_origin_T);
 }

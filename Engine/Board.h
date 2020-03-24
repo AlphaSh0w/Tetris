@@ -17,10 +17,11 @@ public:
 	void ShiftCurrentShapeToLeft();
 	void ShiftCurrentShapeToRight();
 	void ShiftCurrentShapeDown();
-	bool IsCurrentShiftableLeft();
-	bool IsCurrentShiftableRight();
+	bool IsCurrentShiftableLeft() const;
+	bool IsCurrentShiftableRight() const;
 private:
-	bool CheckIfPuttable(Shape& S, Vect<int> shape_origin_T);
+	bool CheckIfPuttable(const RawShape& S,int row, int column, Vect<int> shape_origin_T) const;
+	bool CheckIfPuttable(Shape& S, Vect<int> shape_origin_T) const;
 private:
 	static constexpr int tile_dimension = 30;
 	static constexpr int default_shape_x_T = 5;

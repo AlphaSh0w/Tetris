@@ -31,7 +31,7 @@ Game::Game( MainWindow& wnd )
 {
 	shapeptr = Shape::GenerateRandomShape();
 
-	//board.SetTile(14, 0, std::make_unique<Tile>(Colors::Blue));
+	board.SetTile(Vect<int>(6, 6), std::make_unique<Tile>(Colors::Blue));
 	//board.SetTile(0, 9, std::make_unique<Tile>(Colors::Blue));
 	//board.SetTile(14, 9, std::make_unique<Tile>(Colors::Blue));
 	//board.SetTile(1, 6, std::make_unique<Tile>(Colors::Red));
@@ -57,7 +57,11 @@ void Game::UpdateModel()
 		}
 		if (e.IsPress() && e.GetCode() == 'X')
 		{
-			board.ShiftCurrentShapeDown();
+			if (board.CheckTemp())
+			{
+
+				board.ShiftCurrentShapeDown();
+			}
 		}
 	}
 }
