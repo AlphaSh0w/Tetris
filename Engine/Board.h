@@ -19,6 +19,10 @@ public:
 	void ShiftCurrentShapeDown();
 	bool IsCurrentShiftableLeft() const;
 	bool IsCurrentShiftableRight() const;
+	bool IsCurrentRotatableLeft() const;
+	bool IsCurrentRotatableRight() const;
+	void PutCurrentShapeToContent();
+	void GenerateNewShape();
 private:
 	bool CheckIfPuttable(const RawShape& S,int row, int column, Vect<int> shape_origin_T) const;
 	bool CheckIfPuttable(Shape& S, Vect<int> shape_origin_T) const;

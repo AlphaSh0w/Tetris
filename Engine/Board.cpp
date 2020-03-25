@@ -78,6 +78,41 @@ bool Board::IsCurrentShiftableRight() const
 	return CheckIfPuttable(*current_shape, shape_origin_T + Vect<int>(1, 0));
 }
 
+bool Board::IsCurrentRotatableLeft() const
+{
+	return CheckIfPuttable(current_shape->GetShapeVersion(current_shape->GetLeftRotationDirection()),
+		current_shape->GetNumberOfRows(),current_shape->GetNumberOfColumns(),shape_origin_T);
+}
+
+bool Board::IsCurrentRotatableRight() const
+{
+	return CheckIfPuttable(current_shape->GetShapeVersion(current_shape->GetRightRotationDirection()),
+		current_shape->GetNumberOfRows(), current_shape->GetNumberOfColumns(), shape_origin_T);
+}
+
+void Board::PutCurrentShapeToContent()
+{
+	for (int r = 0; r < current_shape->GetNumberOfRows(); r++)
+	{
+		for (int c = 0; c < current_shape->GetNumberOfColumns(); c++)
+		{
+
+			int shape_index = r * current_shape->GetNumberOfColumns() + c;
+			if ((*current_shape)[shape_index] != nullptr)
+			{
+				int content_index = (shape_origin_T.y + r) * columns + (c + shape_origin_T.x);
+				content[content_index] = std::move((*current_shape)[shape_index]);
+			}
+		}
+	}
+}
+
+void Board::GenerateNewShape()
+{
+	current_shape = std::move(next_shape);
+	next_shape = Shape::GenerateRandomShape();
+}
+
 
 
 bool Board::CheckIfPuttable(const RawShape & S,int row, int column, Vect<int> shape_origin_T) const
