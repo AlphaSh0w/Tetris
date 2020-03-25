@@ -24,6 +24,7 @@ public:
 	void PutCurrentShapeToContent();
 	void GenerateNewShape();
 	void ResetCurrentPosition();
+	void Next();
 private:
 	bool CheckIfPuttable(const RawShape& S,int row, int column, Vect<int> shape_origin_T) const;
 	bool CheckIfPuttable(Shape& S, Vect<int> shape_origin_T) const;
@@ -31,6 +32,7 @@ private:
 	static constexpr int tile_dimension = 30;
 	static constexpr int default_shape_x_T = 5;
 	static constexpr int default_shape_y_T = 0;
+	Vect<int> board_origin;
 
 private:
 	RawShape content;

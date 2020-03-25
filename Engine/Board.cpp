@@ -7,7 +7,8 @@ Board::Board(Vect<int> dimension, Graphics& gfx,int x, int y)
 	columns(dimension.x),
 	content_screen(x,y,tile_dimension,gfx),
 	current_shape_screen(x + (default_shape_x_T * tile_dimension),y + (default_shape_y_T * tile_dimension),tile_dimension,gfx),
-	shape_origin_T(5,0)
+	shape_origin_T(5,0),
+	board_origin(x,y)
 {
 	assert(rows > 0 && columns > 0); //If assertion fails : rows or columns value is <= 0
 	content.resize(rows * columns);
@@ -115,6 +116,24 @@ void Board::GenerateNewShape()
 void Board::ResetCurrentPosition()
 {
 	shape_origin_T = Vect<int>(default_shape_x_T, default_shape_y_T);
+	current_shape_screen.SetOrigin(Vect<int>(board_origin.x + (default_shape_x_T * tile_dimension), board_origin.y + (default_shape_y_T * tile_dimension)));
+}
+
+void Board::Next()
+{
+	//Check if shape should be shifted down or put into the board content.
+	if (CheckIfPuttable(*current_shape, shape_origin_T + Vect<int>(0, 1)))
+	{
+		//it is shiftable down.
+		ShiftCurrentShapeDown();
+	}
+	else
+	{
+		//it is not shiftable down, then it should be put into the content & generate a new shape.
+		PutCurrentShapeToContent();
+		ResetCurrentPosition();
+		GenerateNewShape();
+	}
 }
 
 
@@ -129,7 +148,7 @@ bool Board::CheckIfPuttable(const RawShape & S,int row, int column, Vect<int> sh
 			int shape_index = r * column + c;
 			if (S[shape_index] != nullptr)
 			{
-				if ((shape_origin_T.x + c > columns || shape_origin_T.y + r > rows ||
+				if ((shape_origin_T.x + c > columns - 1 || shape_origin_T.y + r > rows - 1 ||
 					shape_origin_T.x + c < 0 || shape_origin_T.y + r < 0) || content[content_index] != nullptr)
 				{
 					return false;

@@ -27,11 +27,11 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	tilescren(50, 50, 35, gfx),
-	board(Vect<int>(10,15),gfx,100,100)
+	board(Vect<int>(10,7),gfx,100,100)
 {
 	shapeptr = Shape::GenerateRandomShape();
 
-	board.SetTile(Vect<int>(6, 6), std::make_unique<Tile>(Colors::Blue));
+	//board.SetTile(Vect<int>(6, 4), std::make_unique<Tile>(Colors::Blue));
 	//board.SetTile(0, 9, std::make_unique<Tile>(Colors::Blue));
 	//board.SetTile(14, 9, std::make_unique<Tile>(Colors::Blue));
 	//board.SetTile(1, 6, std::make_unique<Tile>(Colors::Red));
@@ -57,13 +57,7 @@ void Game::UpdateModel()
 		}
 		if (e.IsPress() && e.GetCode() == 'X')
 		{
-			//if (board.CheckTemp())
-			{
-
-				board.PutCurrentShapeToContent();
-				board.GenerateNewShape();
-				board.ShiftCurrentShapeDown();
-			}
+			board.Next();
 		}
 	}
 }
