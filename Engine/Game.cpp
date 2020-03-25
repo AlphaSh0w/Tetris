@@ -57,9 +57,11 @@ void Game::UpdateModel()
 		}
 		if (e.IsPress() && e.GetCode() == 'X')
 		{
-			if (board.CheckTemp())
+			//if (board.CheckTemp())
 			{
 
+				board.PutCurrentShapeToContent();
+				board.GenerateNewShape();
 				board.ShiftCurrentShapeDown();
 			}
 		}

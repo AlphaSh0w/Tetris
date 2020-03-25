@@ -23,6 +23,7 @@ public:
 	bool IsCurrentRotatableRight() const;
 	void PutCurrentShapeToContent();
 	void GenerateNewShape();
+	void ResetCurrentPosition();
 private:
 	bool CheckIfPuttable(const RawShape& S,int row, int column, Vect<int> shape_origin_T) const;
 	bool CheckIfPuttable(Shape& S, Vect<int> shape_origin_T) const;

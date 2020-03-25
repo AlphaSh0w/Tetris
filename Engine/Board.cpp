@@ -96,7 +96,6 @@ void Board::PutCurrentShapeToContent()
 	{
 		for (int c = 0; c < current_shape->GetNumberOfColumns(); c++)
 		{
-
 			int shape_index = r * current_shape->GetNumberOfColumns() + c;
 			if ((*current_shape)[shape_index] != nullptr)
 			{
@@ -111,6 +110,11 @@ void Board::GenerateNewShape()
 {
 	current_shape = std::move(next_shape);
 	next_shape = Shape::GenerateRandomShape();
+}
+
+void Board::ResetCurrentPosition()
+{
+	shape_origin_T = Vect<int>(default_shape_x_T, default_shape_y_T);
 }
 
 
