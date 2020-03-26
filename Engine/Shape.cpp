@@ -10,7 +10,8 @@ void Shape::RotateLeft()
 
 void Shape::RotateRight()
 {
-	shape = GetShapeVersion(GetRightRotationDirection());
+	current_rotation = GetRightRotationDirection();
+	shape = GetShapeVersion(current_rotation);
 }
 
 Shape::Rotation Shape::GetCurrentRotation()

@@ -27,7 +27,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	tilescren(50, 50, 35, gfx),
-	board(Vect<int>(10,7),gfx,100,100)
+	board(Vect<int>(10,10),gfx,100,100)
 {
 	shapeptr = Shape::GenerateRandomShape();
 
@@ -53,9 +53,19 @@ void Game::UpdateModel()
 		const auto e = wnd.kbd.ReadKey();
 		if (e.IsPress() && e.GetCode() == 'W')
 		{
-			shapeptr->RotateLeft();
+			if (board.IsCurrentRotatableLeft())
+			{
+				board.RotateShapeLeft();
+			}
 		}
 		if (e.IsPress() && e.GetCode() == 'X')
+		{
+			if (board.IsCurrentRotatableRight())
+			{
+				board.RotateShapeRight();
+			}
+		}
+		if (e.IsPress() && e.GetCode() == 'E')
 		{
 			board.Next();
 		}
