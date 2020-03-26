@@ -25,6 +25,8 @@ public:
 	void GenerateNewShape();
 	void ResetCurrentPosition();
 	void Next();
+	bool CheckIfRowIsComplete(int row) const; //rows start from 0.
+	void DeleteRow(int row); //deletes the row & shifts everything above it down.
 private:
 	bool CheckIfPuttable(const RawShape& S,int row, int column, Vect<int> shape_origin_T) const;
 	bool CheckIfPuttable(Shape& S, Vect<int> shape_origin_T) const;

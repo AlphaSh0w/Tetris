@@ -133,6 +133,36 @@ void Board::Next()
 		PutCurrentShapeToContent();
 		ResetCurrentPosition();
 		GenerateNewShape();
+		for (int r = 0; r < rows; ++r)
+		{
+			if (CheckIfRowIsComplete(r))
+			{
+				DeleteRow(r);
+			}
+		}
+	}
+}
+
+bool Board::CheckIfRowIsComplete(int row) const
+{
+	for (int c = 0; c < columns; c++)
+	{
+		if (content[row * columns + c] == nullptr)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+void Board::DeleteRow(int row)
+{
+	for (int r = row - 1; r >= 0; --r)
+	{
+		for (int c = 0; c < columns; ++c)
+		{
+			content[(r + 1) * columns + c] = std::move(content[r * columns + c]);
+		}
 	}
 }
 
