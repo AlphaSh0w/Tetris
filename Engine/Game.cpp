@@ -30,7 +30,7 @@ Game::Game( MainWindow& wnd )
 	board(Vect<int>(10,15),gfx,100,100)
 {
 	shapeptr = Shape::GenerateRandomShape();
-
+	wnd.kbd.EnableAutorepeat();
 	//board.SetTile(Vect<int>(6, 4), std::make_unique<Tile>(Colors::Blue));
 	//board.SetTile(0, 9, std::make_unique<Tile>(Colors::Blue));
 	//board.SetTile(14, 9, std::make_unique<Tile>(Colors::Blue));
@@ -80,9 +80,17 @@ void Game::UpdateModel()
 			}
 		}
 
-		if (e.IsPress() && e.GetCode() == 'E')
+		if (e.IsPress() && e.GetCode() == VK_DOWN)
 		{
-			board.Next();
+			if (board.Next())
+			{
+				wnd.kbd.DisableAutorepeat();
+			}
+		}
+		if (e.IsRelease() && e.GetCode() == VK_DOWN)
+		{
+			wnd.kbd.Flush();
+			wnd.kbd.EnableAutorepeat();
 		}
 	}
 }

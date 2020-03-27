@@ -24,7 +24,7 @@ public:
 	void PutCurrentShapeToContent();
 	void GenerateNewShape();
 	void ResetCurrentPosition();
-	void Next();
+	bool Next(); //returns true if a row is completed & deleted, false otherwise.
 	bool CheckIfRowIsComplete(int row) const; //rows start from 0.
 	void DeleteRow(int row); //deletes the row & shifts everything above it down.
 private:

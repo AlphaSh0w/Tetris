@@ -119,13 +119,14 @@ void Board::ResetCurrentPosition()
 	current_shape_screen.SetOrigin(Vect<int>(board_origin.x + (default_shape_x_T * tile_dimension), board_origin.y + (default_shape_y_T * tile_dimension)));
 }
 
-void Board::Next()
+bool Board::Next()
 {
 	//Check if shape should be shifted down or put into the board content.
 	if (CheckIfPuttable(*current_shape, shape_origin_T + Vect<int>(0, 1)))
 	{
 		//it is shiftable down.
 		ShiftCurrentShapeDown();
+		return false;
 	}
 	else
 	{
@@ -140,6 +141,7 @@ void Board::Next()
 				DeleteRow(r);
 			}
 		}
+		return true;
 	}
 }
 
