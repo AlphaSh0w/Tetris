@@ -26,10 +26,8 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	tilescren(50, 50, 35, gfx),
-	board(Vect<int>(10,15),gfx,100,100)
+	board(Vect<int>(10,18),gfx,200,50)
 {
-	shapeptr = Shape::GenerateRandomShape();
 	wnd.kbd.EnableAutorepeat();
 	//board.SetTile(Vect<int>(6, 4), std::make_unique<Tile>(Colors::Blue));
 	//board.SetTile(0, 9, std::make_unique<Tile>(Colors::Blue));
@@ -47,57 +45,58 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	board.CheckTemp();
-	while (!wnd.kbd.KeyIsEmpty())
+	if (!board.CheckIfLost())
 	{
-		const auto e = wnd.kbd.ReadKey();
-		if (e.IsPress() && e.GetCode() == 'W')
+		while (!wnd.kbd.KeyIsEmpty())
 		{
-			if (board.IsCurrentRotatableLeft())
+			const auto e = wnd.kbd.ReadKey();
+			if (e.IsPress() && e.GetCode() == 'W')
 			{
-				board.RotateShapeLeft();
+				if (board.IsCurrentRotatableLeft())
+				{
+					board.RotateShapeLeft();
+				}
 			}
-		}
-		if (e.IsPress() && e.GetCode() == 'X')
-		{
-			if (board.IsCurrentRotatableRight())
+			if (e.IsPress() && e.GetCode() == 'X')
 			{
-				board.RotateShapeRight();
+				if (board.IsCurrentRotatableRight())
+				{
+					board.RotateShapeRight();
+				}
 			}
-		}	
-		if (e.IsPress() && e.GetCode() == VK_LEFT)
-		{
-			if (board.IsCurrentShiftableLeft())
+			if (e.IsPress() && e.GetCode() == VK_LEFT)
 			{
-				board.ShiftCurrentShapeToLeft();
+				if (board.IsCurrentShiftableLeft())
+				{
+					board.ShiftCurrentShapeToLeft();
+				}
 			}
-		}	
-		if (e.IsPress() && e.GetCode() == VK_RIGHT)
-		{
-			if (board.IsCurrentShiftableRight())
+			if (e.IsPress() && e.GetCode() == VK_RIGHT)
 			{
-				board.ShiftCurrentShapeToRight();
+				if (board.IsCurrentShiftableRight())
+				{
+					board.ShiftCurrentShapeToRight();
+				}
 			}
-		}
 
-		if (e.IsPress() && e.GetCode() == VK_DOWN)
-		{
-			if (board.Next())
+			if (e.IsPress() && e.GetCode() == VK_DOWN)
 			{
-				wnd.kbd.DisableAutorepeat();
+				if (board.Next())
+				{
+					wnd.kbd.DisableAutorepeat();
+				}
 			}
-		}
-		if (e.IsRelease() && e.GetCode() == VK_DOWN)
-		{
-			wnd.kbd.Flush();
-			wnd.kbd.EnableAutorepeat();
+			if (e.IsRelease() && e.GetCode() == VK_DOWN)
+			{
+				wnd.kbd.Flush();
+				wnd.kbd.EnableAutorepeat();
+			}
 		}
 	}
 }
 
 void Game::ComposeFrame()
 {
-	tilescren.Draw(*shapeptr);
 	board.DrawContent();
 	board.DrawCurrentShape();
 }

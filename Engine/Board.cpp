@@ -145,6 +145,21 @@ bool Board::Next()
 	}
 }
 
+bool Board::CheckIfLost() const
+{
+	for (int r = 0; r < 2; ++r)
+	{
+		for (int c = 0; c < columns; ++c)
+		{
+			if (content[r * columns + c])
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 bool Board::CheckIfRowIsComplete(int row) const
 {
 	for (int c = 0; c < columns; c++)

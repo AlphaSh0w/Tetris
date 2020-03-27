@@ -45,9 +45,8 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	std::unique_ptr<Shape> shapeptr;
-	TileScreen tilescren;
 	Board board;
 	int a = 0;
+	bool lost = false;
 	/********************************/
 };
