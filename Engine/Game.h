@@ -45,6 +45,10 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	float next_frame_time = 41.0f;
+	const float frame_time_drain = 0.1f;
+	const float min_frame_time = 20.f;
+	int passed_frames = 0;
 	Board board;
 	int a = 0;
 	bool lost = false;

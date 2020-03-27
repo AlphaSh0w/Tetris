@@ -7,7 +7,7 @@ Board::Board(Vect<int> dimension, Graphics& gfx,int x, int y)
 	columns(dimension.x),
 	content_screen(x,y,tile_dimension,gfx),
 	current_shape_screen(x + (default_shape_x_T * tile_dimension),y + (default_shape_y_T * tile_dimension),tile_dimension,gfx),
-	shape_origin_T(5,0),
+	shape_origin_T(4,0),
 	board_origin(x,y)
 {
 	assert(rows > 0 && columns > 0); //If assertion fails : rows or columns value is <= 0

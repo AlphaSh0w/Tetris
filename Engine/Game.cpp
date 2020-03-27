@@ -78,11 +78,12 @@ void Game::UpdateModel()
 					board.ShiftCurrentShapeToRight();
 				}
 			}
-
 			if (e.IsPress() && e.GetCode() == VK_DOWN)
 			{
+				passed_frames = 0;
 				if (board.Next())
 				{
+					next_frame_time = std::max(min_frame_time, next_frame_time - frame_time_drain);
 					wnd.kbd.DisableAutorepeat();
 				}
 			}
@@ -92,6 +93,15 @@ void Game::UpdateModel()
 				wnd.kbd.EnableAutorepeat();
 			}
 		}
+		if (passed_frames > (int)next_frame_time)
+		{
+			if (board.Next())
+			{
+				next_frame_time = std::max(min_frame_time, next_frame_time - frame_time_drain);
+			}
+			passed_frames = 0;
+		}
+		++passed_frames;
 	}
 }
 
